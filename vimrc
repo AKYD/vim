@@ -1,7 +1,7 @@
 " vim:foldmethod=marker
 
 
-" good for debugging where a value is set
+" good for debugging : find out where a value is set
 " :verbose set cindent?
 
 " init pathogen
@@ -62,11 +62,15 @@ hi User8 ctermfg=Black ctermbg=Gray
 hi User9 ctermfg=Green ctermbg=Blue
 hi NonText ctermfg=7 guifg=gray
 
+" overwrite the ugly black/pink menu
+hi Pmenu ctermfg=black ctermbg=gray
+hi PmenuSel ctermfg=black ctermbg=Green
+
 " }}}
 
 " Dictionary setup {{{1
 " word completion, C-X C-K to display matches
-set dictionary+=/usr/share/dict/words.pre-dictionaries-common
+set dictionary+=/usr/share/dict/words
 " search for alternative words, C-X C-T to display matches
 " set thesaurus+=/usr/share/dict/mthesaur
 
@@ -146,8 +150,8 @@ cnoremap <c-p> <up>
 cnoremap <c-n> <down>
 
 " easier split navigation
-nnoremap <c-h> 5<c-w><
-nnoremap <c-l> 5<c-w>>
+nnoremap <c-h> 5<c-w>>
+nnoremap <c-l> 5<c-w><
 
 " space to open/close fold
 nnoremap <space> za
@@ -161,7 +165,8 @@ inoremap <C-j> <C-o>j
 inoremap <C-k> <C-o>k
 inoremap <C-l> <C-o>l
 
-" easier tab nagigation
+" easier tab navigation
+
 nnoremap <left> :tabprevious<CR>
 nnoremap <right> :tabnext<CR>
 nnoremap <up> :tabfirst<CR>
@@ -186,6 +191,13 @@ vnoremap <Leader>s :sort<CR>
 nnoremap <Leader>nn :vsp ~/notes/
 " save the current visual selection
 vnoremap <Leader>nn "ny :vsp ~/notes/
+" open bash notes
+nnoremap <Leader>nb :vsp ~/notes/Bash.txt<CR>
+vnoremap <Leader>nb "ny :vsp ~/notes/Bash.txt<CR>
+" open vim notes
+nnoremap <Leader>nv :vsp ~/notes/Vim.txt<CR>
+vnoremap <Leader>nv "ny :vsp ~/notes/Vim.txt<CR>
+
 iabb	--- --------------------------------------------------------------------------------<CR>
 iabb	*** ********************************************************************************<CR>
 
