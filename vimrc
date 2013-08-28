@@ -141,9 +141,9 @@ nnoremap <Leader>e :vsp $MYVIMRC<CR>
 " %% -> $(basename %)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Maps for jj to act as Esc
-inoremap jj <esc>
-cnoremap jj <c-c>
+" Maps for jk to act as Esc
+inoremap jk <esc>
+cnoremap jk <c-c>
 
 " filter results in command history
 cnoremap <c-p> <up>
