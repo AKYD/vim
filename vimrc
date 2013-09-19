@@ -91,7 +91,7 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set tabstop=8                                                     " a tab is 4 spaces
 set softtabstop=8                                                 " backspace deletes 4 spaces
 set shiftwidth=8                                                  " spaces for auto indents
-set noexpandtab                                                   " use tabs instead of spaces
+set expandtab                                                     " use spaces instead of tabs
 set scrolloff=6                                                   " show 2 lines below/above the cursor
 set number                                                        " show line numbers
 set showmatch                                                     " Show matching brackets when text indicator is over them
@@ -112,16 +112,17 @@ set ignorecase                                                    " case insensi
 set smartcase                                                     " but become case sensitive if you type uppercase characters
 set smartindent                                                   " smart auto indenting
 set smarttab                                                      " smart tab handling for indenting
+set shiftround                                                    "Always indent/outdent to nearest tabstop
 set magic                                                         " change the way backslashes are used in search patterns
 set bs=indent,eol,start                                           " Allow backspacing over everything in insert mode)
 set wrap                                                          " wrap long lines
 set linebreak                                                     " don't break words when wrapping text
 set showbreak=¬                                                   " ¬ is added in front of the soft lines when using line break
 
-set fileformat=unix						  " file type Unix 
-set foldmethod=manual						  " use manual fold method
+set fileformat=unix                                               " file type Unix 
+set foldmethod=manual                                             " use manual fold method
 
-set diffopt=filler,icase,vertical				  " diffsplit settings : do - Get changes from other window into the current window; dp - Put the changes from current window into the other window; :diffsplit
+set diffopt=filler,icase,vertical                                 " diffsplit settings : do - Get changes from other window into the current window; dp - Put the changes from current window into the other window; :diffsplit
 
 " }}}
 
@@ -131,6 +132,56 @@ let mapleader = ","
 
 " clear search
 nmap <silent> ,/ :nohlsearch<CR>
+
+function! ToggleComment ()
+    " What's the comment character???
+    let comment_char = exists('b:cmt') ? b:cmt : '#'
+
+    " Grab the line and work out whether it's commented...
+    let currline = getline(".")
+
+    " If so, remove it and rewrite the line...
+    if currline =~ '^' . comment_char
+        let repline = substitute(currline, '^' . comment_char, "", "")
+        call setline(".", repline)
+
+    " Otherwise, insert it...
+    else
+        let repline = substitute(currline, '^', comment_char, "")
+        call setline(".", repline)
+    endif
+endfunction
+
+" Toggle comments down an entire visual selection of lines...
+function! ToggleBlock () range
+    " What's the comment character???
+    let comment_char = exists('b:cmt') ? b:cmt : '#'
+
+    " Start at the first line...
+    let linenum = a:firstline
+
+    " Get all the lines, and decide their comment state by examining the first...
+    let currline = getline(a:firstline, a:lastline)
+    if currline[0] =~ '^' . comment_char
+        " If the first line is commented, decomment all...
+        for line in currline
+            let repline = substitute(line, '^' . comment_char, "", "")
+            call setline(linenum, repline)
+            let linenum += 1
+        endfor
+    else
+        " Otherwise, encomment all...
+        for line in currline
+            let repline = substitute(line, '^\('. comment_char . '\)\?', comment_char, "")
+            call setline(linenum, repline)
+            let linenum += 1
+        endfor
+    endif
+endfunction
+
+" Set up the relevant mappings
+nmap <silent> ## :call ToggleComment()<CR>j0
+vmap <silent> ## :call ToggleBlock()<CR>
 
 " forgot to sudo first?
 cmap w!! w !sudo tee % >/dev/null
@@ -198,8 +249,8 @@ vnoremap <Leader>nb "ny :vsp ~/notes/Bash.txt<CR>
 nnoremap <Leader>nv :vsp ~/notes/Vim.txt<CR>
 vnoremap <Leader>nv "ny :vsp ~/notes/Vim.txt<CR>
 
-iabb	--- --------------------------------------------------------------------------------<CR>
-iabb	*** ********************************************************************************<CR>
+iabb    --- --------------------------------------------------------------------------------<CR>
+iabb    *** ********************************************************************************<CR>
 
 " autocomplete (, [, {
 
@@ -231,8 +282,8 @@ iabb	*** ***********************************************************************
 " function! QuoteInsertionWrapper (quote)
 " let     col     = col('.')
 " if getline('.')[col-2] !~ '\k' && getline('.')[col] !~ '\k'
-" 		normal ax
-" 		exe "normal r".a:quote."h"
+"               normal ax
+"               exe "normal r".a:quote."h"
 " end
 " endfunction    " ----------  end of function QuoteInsertionWrapper  ----------
 
@@ -249,22 +300,22 @@ let g:BASH_DoOnNewLine = 'yes'
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-	func! Autoindentbash()
-		exe "normal gg=G"
-	endfunc
-	" Syntax of these languages is fussy over tabs Vs spaces
+        func! Autoindentbash()
+                exe "normal gg=G"
+        endfunc
+        " Syntax of these languages is fussy over tabs Vs spaces
 
-"	autocmd FileType sh :call Autoindentbash()
-	
+"       autocmd FileType sh :call Autoindentbash()
+        
 endif
 
 " Map key to toggle opt
 if !exists("MapToggle")
-	function! MapToggle(key, opt)
-		let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
-		exec 'nnoremap '.a:key.' '.cmd
-		exec 'inoremap '.a:key." \<C-O>".cmd
-	endfunction
+        function! MapToggle(key, opt)
+                let cmd = ':set '.a:opt.'! \| set '.a:opt."?\<CR>"
+                exec 'nnoremap '.a:key.' '.cmd
+                exec 'inoremap '.a:key." \<C-O>".cmd
+        endfunction
 endif
 command! -nargs=+ MapToggle call MapToggle(<f-args>)
 
@@ -274,18 +325,18 @@ runtime! plugin/*.vim
 " Tabularize plugin example : Tabularize /<pattern>
 " \a= will run Tabularize \=
 if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:<CR>
-	vmap <Leader>a: :Tabularize /:<CR>
-	nmap <Leader>a" :Tabularize /"<CR>
-	vmap <Leader>a" :Tabularize /"<CR>
-	nmap <Leader>a<bar> :Tabularize /<bar><CR>
-	vmap <Leader>a<bar> :Tabularize /<bar><CR>
-	nmap <Leader>a, :Tabularize /,<CR>
-	vmap <Leader>a, :Tabularize /,<CR>
-	nmap <Leader>a# :Tabularize /#<CR>
-	vmap <Leader>a# :Tabularize /#<CR>
+        nmap <Leader>a= :Tabularize /=<CR>
+        vmap <Leader>a= :Tabularize /=<CR>
+        nmap <Leader>a: :Tabularize /:<CR>
+        vmap <Leader>a: :Tabularize /:<CR>
+        nmap <Leader>a" :Tabularize /"<CR>
+        vmap <Leader>a" :Tabularize /"<CR>
+        nmap <Leader>a<bar> :Tabularize /<bar><CR>
+        vmap <Leader>a<bar> :Tabularize /<bar><CR>
+        nmap <Leader>a, :Tabularize /,<CR>
+        vmap <Leader>a, :Tabularize /,<CR>
+        nmap <Leader>a# :Tabularize /#<CR>
+        vmap <Leader>a# :Tabularize /#<CR>
 endif
 
 " taglist plugin
@@ -303,6 +354,9 @@ let g:calendar_weeknm = 2 " WK 1
 " Shortcuts {{{2
 
 " undo history browser
+" Shut visualizer when a state is selected...
+let g:gundo_close_on_revert = 1
+
 nnoremap <F5> :GundoToggle<CR>
 " set/unset paste mode
 MapToggle <F12> paste
@@ -319,5 +373,5 @@ nmap <F2> :setlocal spell! spelllang=en_us<CR>
 
 " Localize plugin, :L
 
-	" }}}
+        " }}}
 " }}}
