@@ -14,7 +14,6 @@ autocmd! bufwritepost .vimrc source %
 
 " Init {{{1
 
-
 colorscheme koehler
 
 " syntax highlighting
@@ -36,6 +35,10 @@ set foldcolumn=3
 
 " allow for buffers to be hidden
 set hidden
+
+" clear env variable PAGER
+" so we can use vim as a MANPAGER
+let $PAGER=''
 
 " }}}
 
