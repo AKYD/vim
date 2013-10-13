@@ -4,10 +4,6 @@
 " good for debugging : find out where a value is set
 " :verbose set cindent?
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
 " init pathogen
 execute pathogen#infect()
 call pathogen#helptags()
@@ -47,17 +43,17 @@ let $PAGER=''
 " }}}
 
 " Status line {{{1
-" set statusline=
-" set statusline+=%7*\[%n]                             " buffernr
-" set statusline+=%1*\ %<%F\                           " File+path
-" set statusline+=%2*\ %y\                             " FileType
-" set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
-" set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
-" set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
-" set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
-" set statusline+=%9*\ col:%03c\                       " Colnr
-" set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
-" set statusline+=\ [A=\%03.3b/H=\%02.2B]              " ASCII / Hexadecimal value of char
+set statusline=
+set statusline+=%7*\[%n]                             " buffernr
+set statusline+=%1*\ %<%F\                           " File+path
+set statusline+=%2*\ %y\                             " FileType
+set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
+set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
+set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
+set statusline+=%9*\ col:%03c\                       " Colnr
+set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
+set statusline+=\ [A=\%03.3b/H=\%02.2B]              " ASCII / Hexadecimal value of char
 
 hi User1 ctermfg=Red ctermbg=Blue
 hi User2 ctermfg=Darkblue ctermbg=Gray
