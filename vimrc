@@ -1,6 +1,5 @@
 " vim:foldmethod=marker
 
-
 " good for debugging : find out where a value is set
 " :verbose set cindent?
 
@@ -35,6 +34,9 @@ set foldcolumn=3
 
 " allow for buffers to be hidden
 set hidden
+
+" disable swapfile generation
+set noswapfile
 
 " clear env variable PAGER
 " so we can use vim as a MANPAGER
@@ -95,7 +97,7 @@ set tabstop=8                                                     " a tab is 4 s
 set softtabstop=8                                                 " backspace deletes 4 spaces
 set shiftwidth=8                                                  " spaces for auto indents
 set expandtab                                                     " use spaces instead of tabs
-set scrolloff=6                                                   " show 2 lines below/above the cursor
+set scrolloff=30                                                  " show 30 lines below/above the cursor
 set number                                                        " show line numbers
 set showmatch                                                     " Show matching brackets when text indicator is over them
 set ruler                                                         " show cursor position in status bar
@@ -132,6 +134,9 @@ set diffopt=filler,icase,vertical                                 " diffsplit se
 " Maps {{{1
 " remap mapleader to ,
 let mapleader = ","
+
+" recover , functionality 
+nnoremap ;; ,
 
 " clear search
 nmap <silent> ,/ :nohlsearch<CR>
@@ -373,6 +378,9 @@ nnoremap <F6> :TlistToggle<CR>
 
 " shortcut to toggle spelling
 nmap <F2> :setlocal spell! spelllang=en_us<CR>
+
+nnoremap ,b :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
+let g:ConqueTerm_CloseOnEnd = 1
 
 " Localize plugin, :L
 
