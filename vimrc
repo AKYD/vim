@@ -11,6 +11,9 @@ set nocompatible
 " autoload .vimrc on save
 autocmd! bufwritepost .vimrc source %
 
+" switch to that file's directory
+autocmd BufEnter * silent! lcd %:p:h
+
 " Init {{{1
 
 colorscheme koehler
@@ -52,6 +55,7 @@ set statusline+=%2*\ %y\                             " FileType
 set statusline+=%3*\ %{(&bomb?\",BOM\":\"\")}\       " Encoding2
 set statusline+=%3*\ %{''.(&fenc!=''?&fenc:&enc).''} " Encoding
 set statusline+=%4*\ %{&ff}\                         " FileFormat (dos/unix..)
+set statusline+=%{exists('g:loaded_fugitive')?fugitive#statusline():''}
 set statusline+=%8*\ %=\ row:%l/%L\ (%03p%%)\        " Rownumber/total (%)
 set statusline+=%9*\ col:%03c\                       " Colnr
 set statusline+=%0*\ \ %m%r%w\ %P\ \                 " Modified? Readonly? Top/bot.
