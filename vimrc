@@ -45,6 +45,8 @@ set noswapfile
 " so we can use vim as a MANPAGER
 let $PAGER=''
 
+set shell=/bin/bash
+
 " }}}
 
 " Status line {{{1
