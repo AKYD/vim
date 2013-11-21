@@ -14,6 +14,9 @@ autocmd! bufwritepost .vimrc source %
 " switch to that file's directory
 autocmd BufEnter * silent! lcd %:p:h
 
+" auto close fugitive buffers on focus lost
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
 " Init {{{1
 
 colorscheme koehler
@@ -142,7 +145,7 @@ set diffopt=filler,icase,vertical                                 " diffsplit se
 let mapleader = ","
 
 " recover , functionality 
-nnoremap ;; ,
+nnoremap ;, ,
 
 " clear search
 nmap <silent> ,/ :nohlsearch<CR>
@@ -223,12 +226,6 @@ nnoremap <space> za
 
 " insert mode calculator C-C
 inoremap <C-C> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
-
-" insert mode navigation
-inoremap <C-h> <C-o>h
-inoremap <C-j> <C-o>j
-inoremap <C-k> <C-o>k
-inoremap <C-l> <C-o>l
 
 " easier tab navigation
 
