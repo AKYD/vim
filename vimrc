@@ -145,7 +145,7 @@ set diffopt=filler,icase,vertical                                 " diffsplit se
 let mapleader = ","
 
 " recover , functionality 
-nnoremap ;, ,
+nnoremap ,, ,
 
 " clear search
 nmap <silent> ,/ :nohlsearch<CR>
@@ -229,17 +229,17 @@ inoremap <C-C> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " easier tab navigation
 
-nnoremap <left> :tabprevious<CR>
-nnoremap <right> :tabnext<CR>
-nnoremap <up> :tabfirst<CR>
-nnoremap <down> :tablast<CR>
+"nnoremap <left> :tabprevious<CR>
+"nnoremap <right> :tabnext<CR>
+"nnoremap <up> :tabfirst<CR>
+"nnoremap <down> :tablast<CR>
 
 " Bubble single lines. Use temporary register m
-nmap <C-k> "mddk"mP
-nmap <C-j> "mdd"mp
+nnoremap <C-k> "mddk"mP
+nnoremap <C-j> "mdd"mp
 " Bubble multiple lines. Use temporary register n
-vmap <C-k> "nxk"nP`[V`]
-vmap <C-j> "nx"np`[V`]
+vnoremap <C-k> "nxk"nP`[V`]
+vnoremap <C-j> "nx"np`[V`]
 
 " visual indent. keep the selection
 vnoremap < <gv
