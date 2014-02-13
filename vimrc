@@ -229,6 +229,9 @@ inoremap <C-C> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 " easier tab navigation
 
+nnoremap <C-n> :tabnext<CR>
+nnoremap <C-p> :tabprev<CR>
+
 "nnoremap <left> :tabprevious<CR>
 "nnoremap <right> :tabnext<CR>
 "nnoremap <up> :tabfirst<CR>
