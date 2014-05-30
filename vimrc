@@ -102,8 +102,8 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " }}}
 
 " Stuff {{{1
-set tabstop=8                                                     " a tab is 4 spaces
-set softtabstop=8                                                 " backspace deletes 4 spaces
+set tabstop=8                                                     " a tab is 8 spaces
+set softtabstop=8                                                 " backspace deletes 8 spaces
 set shiftwidth=8                                                  " spaces for auto indents
 set expandtab                                                     " use spaces instead of tabs
 set scrolloff=30                                                  " show 30 lines below/above the cursor
@@ -141,14 +141,14 @@ set diffopt=filler,icase,vertical                                 " diffsplit se
 " }}}
 
 " Maps {{{1
-" remap mapleader to ,
+" remap mapleader to ","
 let mapleader = ","
 
 " recover , functionality 
 nnoremap ,, ,
 
 " clear search
-nmap <silent> ,/ :nohlsearch<CR>
+nmap <silent> <Leader>/ :nohlsearch<CR>
 
 function! ToggleComment ()
     " What's the comment character???
@@ -209,9 +209,6 @@ nnoremap <Leader>e :vsp $MYVIMRC<CR>
 " %% -> $(basename %)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Maps for jk to act as Esc
-inoremap jk <esc>
-cnoremap jk <c-c>
 
 " filter results in command history
 cnoremap <c-p> <up>
@@ -231,11 +228,6 @@ inoremap <C-C> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
 
 nnoremap <C-n> :tabnext<CR>
 nnoremap <C-p> :tabprev<CR>
-
-"nnoremap <left> :tabprevious<CR>
-"nnoremap <right> :tabnext<CR>
-"nnoremap <up> :tabfirst<CR>
-"nnoremap <down> :tablast<CR>
 
 " Bubble single lines. Use temporary register m
 nnoremap <C-k> "mddk"mP
@@ -337,7 +329,7 @@ command! -nargs=+ MapToggle call MapToggle(<f-args>)
 runtime! plugin/*.vim
 
 " Tabularize plugin example : Tabularize /<pattern>
-" \a= will run Tabularize \=
+" ,a= will run Tabularize \=
 if exists(":Tabularize")
         nmap <Leader>a= :Tabularize /=<CR>
         vmap <Leader>a= :Tabularize /=<CR>
@@ -356,7 +348,7 @@ endif
 " taglist plugin
 let $Tlist_Ctags_Cmd='/usr/bin/ctags'
 
-" tasklist plugin keywords : ,t to open
+" tasklist plugin keywords : ","t to open
 let g:tlTokenList = ['TODO', 'BUG', 'FIXME']
 
 " Calendar plugin
@@ -385,10 +377,8 @@ nnoremap <F6> :TlistToggle<CR>
 " shortcut to toggle spelling
 nmap <F2> :setlocal spell! spelllang=en_us<CR>
 
-nnoremap ,b :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
+nnoremap <Leader>b :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
 let g:ConqueTerm_CloseOnEnd = 1
-
-" Localize plugin, :L
 
         " }}}
 " }}}
