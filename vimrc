@@ -375,10 +375,16 @@ MapToggle <F10> scrollbind
 nnoremap <F6> :TlistToggle<CR>
 
 " shortcut to toggle spelling
-nmap <F2> :setlocal spell! spelllang=en_us<CR>
+nmap <F2> :setlocal spell! spelllang=en_us<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
-nnoremap <Leader>b :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
+nnoremap <Leader>cs :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
 let g:ConqueTerm_CloseOnEnd = 1
+
+nnoremap <Leader>vs :VimShellPop<CR>
+let g:vimshell_popup_height=45
+
+" add file under cursor to buffer list
+noremap <silent> <leader>f <Esc>:badd <cfile><CR>
 
         " }}}
 " }}}
