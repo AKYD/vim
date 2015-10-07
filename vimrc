@@ -25,7 +25,7 @@ colorscheme koehler
 syntax on
 
 " highlight current line
-set cursorline
+" set cursorline
 
 " virtual edit=block allows selection part the end on the line
 set virtualedit=block
@@ -49,6 +49,9 @@ set noswapfile
 let $PAGER=''
 
 set shell=/bin/bash
+
+" set omnicompletion
+set omnifunc=syntaxcomplete#Complete
 
 " }}}
 
@@ -209,6 +212,8 @@ nnoremap <Leader>e :vsp $MYVIMRC<CR>
 " %% -> $(basename %)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" split - opposite of J
+nnoremap hh mgi^M^[`g
 
 " filter results in command history
 cnoremap <c-p> <up>
@@ -220,6 +225,10 @@ nnoremap <c-l> 5<c-w><
 
 " space to open/close fold
 nnoremap <space> za
+
+" insert mode copy word at a time (Y-above, E-below)
+inoremap <expr> <c-y> pumvisible() ? "\<c-y>" : matchstr(getline(line('.')-1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
+inoremap <expr> <c-e> pumvisible() ? "\<c-e>" : matchstr(getline(line('.')+1), '\%' . virtcol('.') . 'v\%(\k\+\\|.\)')
 
 " insert mode calculator C-C
 inoremap <C-C> <C-O>yiW<End>=<C-R>=<C-R>0<CR>
@@ -325,6 +334,8 @@ if !exists("MapToggle")
 endif
 command! -nargs=+ MapToggle call MapToggle(<f-args>)
 
+au BufNewFile *.py 0r /home/alinh/.vim/bundle/python-mode/skel/new.template
+
 " load the plugins
 runtime! plugin/*.vim
 
@@ -357,6 +368,12 @@ let g:calendar_monday = 1
 " week number format
 let g:calendar_weeknm = 2 " WK 1
 
+" Pymode
+
+let g:pymode_lint = 1
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint_on_write = 1
+
 " Shortcuts {{{2
 
 " undo history browser
@@ -364,6 +381,7 @@ let g:calendar_weeknm = 2 " WK 1
 let g:gundo_close_on_revert = 1
 
 nnoremap <F5> :GundoToggle<CR>
+" nnoremap <F5> :UndotreeToggle<cr>
 " set/unset paste mode
 MapToggle <F12> paste
 " show/hide special chars
@@ -380,11 +398,12 @@ nmap <F2> :setlocal spell! spelllang=en_us<CR><Bar>:echo "Spell Check: " . strpa
 nnoremap <Leader>cs :call conque_term#open('/bin/bash', ['split', 'resize 20'], 0)<CR>
 let g:ConqueTerm_CloseOnEnd = 1
 
-nnoremap <Leader>vs :VimShellPop<CR>
-let g:vimshell_popup_height=45
-
 " add file under cursor to buffer list
 noremap <silent> <leader>f <Esc>:badd <cfile><CR>
 
+
+" disable gitgutter by default. Enable with :GitGutterEnable
+let g:gitgutter_enabled = 0
+let g:gitgutter_realtime = 1
         " }}}
 " }}}
